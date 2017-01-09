@@ -19,19 +19,18 @@ myApp.config(["$routeProvider", function($routeProvider){
     });
 }]);
 
+myApp.controller("HeaderController", ["$scope", function($scope){
+  $scope.navSelect = 1;
+}]);
+
 myApp.controller("InstructController", ["$scope", function($scope){
-  console.log("Instructions");
 }]);
 
 myApp.controller("ShowAllController", ["$scope", "$http", function($scope, $http){
-  console.log("Show All Pets");
-
   $scope.sortPets = false;
-
   $scope.sortAlpha = function(){
     $scope.sortPets = true;
   };
-
   $scope.deletePet = function(id){
     console.log('Deleting pet id ', id);
     $http({
@@ -39,7 +38,6 @@ myApp.controller("ShowAllController", ["$scope", "$http", function($scope, $http
       url: '/pets/' + id
     }).then(getPets);
   };
-
   function getPets(){
     /* Function for getting all pets. Called when controller initializes, and
     then after any change. */
@@ -52,14 +50,10 @@ myApp.controller("ShowAllController", ["$scope", "$http", function($scope, $http
       console.log($scope.petArray);
     }); // end $http
   } // end getAssignments
-
   getPets();
-
 }]);
 
 myApp.controller("AddPetController", ["$scope", "$http", function($scope, $http){
-  console.log("Add a pet");
-
   $scope.addPet = function() {
     // Method for adding a pet. Called by add pet button.
     var petToAdd = {
@@ -75,5 +69,4 @@ myApp.controller("AddPetController", ["$scope", "$http", function($scope, $http)
       data: petToAdd
     });
   };
-
 }]);

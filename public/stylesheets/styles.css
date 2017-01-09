@@ -49,3 +49,7 @@ footer {
 footer p {
   margin-bottom: .25rem;
 }
+
+h2 {
+  text-align: center;
+}
