@@ -7,30 +7,31 @@
     <meta name="description" content="Tau Cohort Pet Directory">
     <meta name="author" content="Andy Taton">
     <title>Tau Pet Directory</title>
-    <script src="vendors/angular.min.js" charset="utf-8"></script>
-    <script src="scripts/client.js" charset="utf-8"></script>
+    <script type="text/javascript" src="vendors/angular.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="vendors/angular-route.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="scripts/client.js" charset="utf-8"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link href="stylesheets/styles.css" rel="stylesheet">
   </head>
 
   <body ng-app="myApp">
-    <main ng-controller="PetListController">
+    <main>
 
       <section class="jumbotron text-center">
         <div class="container">
           <h1 class="jumbotron-heading">Tau Pet Directory</h1>
-          <p class="lead text-muted">Welcome to the directory of Tau cohort pets!.</p>
+          <p class="lead text-muted">Welcome to the directory of Tau cohort pets!</p>
           <p>
-            <a href="#" class="btn btn-primary">Instructions</a>
-            <a href="#" class="btn btn-primary">Tau Pets</a>
-            <a href="#" class="btn btn-primary">Add a Pet</a>
+            <a href="#!/instructions" class="btn btn-primary">Instructions</a>
+            <a href="#!/showallpets" class="btn btn-primary">Show All Pets</a>
+            <a href="#!/addpet" class="btn btn-primary">Add a Pet</a>
           </p>
         </div>
       </section>
 
-      <section class="container">
-        <h2>Intro paragraph/instructions</h2>
-      </section>
+      <section ng-view class="container"></section>
+
+<!--
 
       <section class="container">
         <h2>Input new pet</h2>
@@ -83,44 +84,24 @@
 
       <section class="container">
         <h2>List of entered pets</h2>
-
-        <div class="album text-muted">
+        <button type="button" ng-click="sortAlpha()" class="btn btn-secondary">Sort alphabetically</button>
+        <div class="album">
           <div class="container">
             <div class="row">
-              <div class="card" ng-repeat="pet in petArray">
+              <div class="card" ng-repeat="pet in petArray | orderBy: (sortPets || '') && 'name'">
                 <img ng-src={{pet.imgurl}} alt="Image of pet">
-                <p class="card-text">Some text</p>
+                <h5>{{pet.name}}</h5>
+                <p>{{pet.years_old}}-year old {{pet.animal}}</p>
                 <button type="button" ng-click="deletePet(pet._id)" class="btn btn-danger">Delete this pet</button>
               </div>
             </div>
           </div>
         </div>
 
-
       </section>
+-->
 
     </main>
-
-  <!--
-
-
-      <div ng-repeat="assignment in assignmentArray">
-        <p><span class="bold">Assignment:</span> {{assignment.assignment_name}}</p>
-        <p><span class="bold">Student:</span> {{assignment.student_name}}</p>
-        <p><span class="bold">Score:</span> {{assignment.score}}</p>
-        <p><span class="bold">Date Completed:</span> {{assignment.date_completed | date:'MM/dd/yyyy'}}</p>
-        <button type="button" ng-click="deleteAssignment(assignment._id)" class="btn btn-danger">Delete</button>
-        <button type="button" ng-click="showModifyForm(assignment._id)" class="btn btn-warning">Modify Score</button>
-        <form ng-show="showMe === assignment._id" class="form-inline">
-          <label>Score:</label>
-          <input type="number" ng-model="assignment.score" class="form-control" value="6">
-          <button type="submit" ng-click="modifyAssignment(assignment._id, assignment.score)" class="btn btn-warning">Save Score Change</button>
-        </form>
-        <hr>
-      </div>
-    </main>
-
-  -->
 
   </body>
 </html>

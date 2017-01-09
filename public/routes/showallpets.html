@@ -1,0 +1,14 @@
+<h2>List of entered pets</h2>
+<button type="button" ng-click="sortAlpha()" class="btn btn-secondary">Sort alphabetically</button>
+<div class="album">
+  <div class="container">
+    <div class="row">
+      <div class="card" ng-repeat="pet in petArray | orderBy: (sortPets || '') && 'name'">
+        <img ng-src={{pet.imgurl}} alt="Image of pet">
+        <h5>{{pet.name}}</h5>
+        <p>{{pet.years_old}}-year old {{pet.animal}}</p>
+        <button type="button" ng-click="deletePet(pet._id)" class="btn btn-danger">Delete this pet</button>
+      </div>
+    </div>
+  </div>
+</div>

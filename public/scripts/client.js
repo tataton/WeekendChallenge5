@@ -1,21 +1,35 @@
-var myApp = angular.module('myApp', []);
+var myApp = angular.module('myApp', ["ngRoute"]);
 
-myApp.controller('PetListController', ['$scope', '$http', function($scope, $http) {
+myApp.config(["$routeProvider", function($routeProvider){
+  $routeProvider
+    .when("/instructions", {
+      templateUrl : "/routes/instructions.html",
+      controller: "InstructController"
+    })
+    .when("/showallpets", {
+      templateUrl : "/routes/showallpets.html",
+      controller: "ShowAllController"
+    })
+    .when("/addpet", {
+      templateUrl : "/routes/addpet.html",
+      controller: "AddPetController"
+    })
+    .otherwise({
+      redirectTo: "instructions"
+    });
+}]);
 
-  $scope.addPet = function() {
-    // Method for adding a pet. Called by add pet button.
-    var petToAdd = {
-      name: $scope.petNameIn,
-      animal: $scope.animalTypeIn,
-      years_old: $scope.ageIn,
-      imgurl: $scope.imgurlIn
-    };
-    console.log(petToAdd);
-    $http({
-      method: 'POST',
-      url: '/pets',
-      data: petToAdd
-    }).then(getPets);
+myApp.controller("InstructController", ["$scope", function($scope){
+  console.log("Instructions");
+}]);
+
+myApp.controller("ShowAllController", ["$scope", "$http", function($scope, $http){
+  console.log("Show All Pets");
+
+  $scope.sortPets = false;
+
+  $scope.sortAlpha = function(){
+    $scope.sortPets = true;
   };
 
   $scope.deletePet = function(id){
@@ -41,4 +55,25 @@ myApp.controller('PetListController', ['$scope', '$http', function($scope, $http
 
   getPets();
 
-}]); // end PetListController
+}]);
+
+myApp.controller("AddPetController", ["$scope", "$http", function($scope, $http){
+  console.log("Add a pet");
+
+  $scope.addPet = function() {
+    // Method for adding a pet. Called by add pet button.
+    var petToAdd = {
+      name: $scope.petNameIn,
+      animal: $scope.animalTypeIn,
+      years_old: $scope.ageIn,
+      imgurl: $scope.imgurlIn
+    };
+    console.log(petToAdd);
+    $http({
+      method: 'POST',
+      url: '/pets',
+      data: petToAdd
+    });
+  };
+
+}]);
